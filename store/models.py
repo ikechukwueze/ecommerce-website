@@ -29,24 +29,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-    
-    """
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        
-        if self.image:
-            img = Image.open(self.image.path)
-            #new_height = 360
-            #new_width = int(img.width * new_height / img.height)
-            #print(new_width, new_height)
-            
-            #output_size = (new_width, new_height)
-            output_size = (640, 360)
-            img_r = img.resize(output_size)
-            print(img_r.size)
-            img_r.save(self.image.path)
-    """        
-
     @property
     def imageURL(self):
         try:
@@ -54,6 +36,7 @@ class Product(models.Model):
         except:
             url = settings.MEDIA_URL + 'placeholder.png'
         return url
+
 
 
 class Order(models.Model):
@@ -71,7 +54,6 @@ class Order(models.Model):
         total = sum([item.getTotal for item in orderitems])
         return total
 
-    
     @property
     def getcartItems(self):
         orderitems = self.orderitem_set.all()
@@ -90,7 +72,7 @@ class OrderItem(models.Model):
         total = self.product.price * self.quantity
         return total
 
-
+    """
     def save(self, *args, **kwargs):
         if self.product:
             ordered_product = Product.objects.get(name=self.product)
@@ -99,9 +81,8 @@ class OrderItem(models.Model):
             if ordered_product.stock > self.quantity:
                 ordered_product.stock -= self.quantity
                 ordered_product.save() 
-                print(ordered_product.stock)
                 super().save(*args, **kwargs)
-
+    """
 
 
 class ShippingAddress(models.Model):
