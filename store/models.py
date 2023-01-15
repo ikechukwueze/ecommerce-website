@@ -18,13 +18,12 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
+    sku = models.UUIDField(default=uuid.uuid4, primary_key=True)
     name = models.CharField(max_length=200)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=True)
     stock = models.IntegerField(default=0)
     image = models.ImageField(null=True, blank=True)
-    
-    #image = ResizedImageField(size=[640, 360], upload_to=settings.MEDIA_ROOT)
 
     def __str__(self):
         return self.name
