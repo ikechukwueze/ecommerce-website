@@ -72,18 +72,6 @@ class OrderItem(models.Model):
         total = self.product.price * self.quantity
         return total
 
-    """
-    def save(self, *args, **kwargs):
-        if self.product:
-            ordered_product = Product.objects.get(name=self.product)
-            print(ordered_product.stock)
-            #ordered_product_stock = ordered_product.stock
-            if ordered_product.stock > self.quantity:
-                ordered_product.stock -= self.quantity
-                ordered_product.save() 
-                super().save(*args, **kwargs)
-    """
-
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
