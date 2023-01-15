@@ -39,6 +39,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    order_id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
